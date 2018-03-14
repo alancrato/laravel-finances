@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoryCosts extends Model
 {
+    //Comment model push test
     protected $fillable = [
         'name'
     ];
