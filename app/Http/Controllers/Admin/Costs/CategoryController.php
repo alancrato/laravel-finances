@@ -53,7 +53,7 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $categories = $this->categoryCosts->find($id);
+        $categories = $this->categoryCosts->findOrFail($id);
         return view('admin.costs.category.edit', compact('categories'));
 
     }
@@ -62,7 +62,7 @@ class CategoryController extends Controller
     {
         $this->validate($request, $this->categoryCosts->rules($id));
 
-        $data = $this->categoryCosts->find($id)->update($request->all());
+        $data = $this->categoryCosts->findOrFail($id)->update($request->all());
 
         if($data){
             return redirect()
@@ -79,13 +79,13 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        $cat = $this->categoryCosts->find($id);
+        $cat = $this->categoryCosts->findOrFail($id);
         return view('admin.costs.category.show', compact('cat'));
     }
 
     public function destroy($id)
     {
-        $cat = $this->categoryCosts->find($id);
+        $cat = $this->categoryCosts->findOrFail($id);
         $cat->delete();
         return redirect()->to('/costs/categories');
 
