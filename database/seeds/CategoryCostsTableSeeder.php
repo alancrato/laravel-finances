@@ -11,6 +11,6 @@ class CategoryCostsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\CategoryCosts::class,10)->create();
+        factory(\App\Models\CategoryCosts::class,10)->create();
     }
 }

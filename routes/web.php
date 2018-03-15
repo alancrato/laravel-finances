@@ -17,3 +17,5 @@ Route::group([
     ], function(){
     Route::resource('categories', 'CategoryController');
 });
+
+Route::resource('/users', 'UsersController');

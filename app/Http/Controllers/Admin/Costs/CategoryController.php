@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Costs;
 
-use App\CategoryCosts;
+use App\Models\CategoryCosts;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -18,6 +18,7 @@ class CategoryController extends Controller
      */
     public function __construct(CategoryCosts $categoryCosts)
     {
+        $this->middleware('auth');
         $this->categoryCosts = $categoryCosts;
     }
 
