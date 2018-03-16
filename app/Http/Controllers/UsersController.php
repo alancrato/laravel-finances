@@ -47,7 +47,7 @@ class UsersController extends Controller
                 ->with(['success' => 'Usuário cadastrado com sucesso!']);
         }else{
             return redirect()
-                ->route('categories.create')
+                ->route('users.create')
                 ->withErrors(['errors' => 'Falha ao cadastrar!'])
                 ->withInput();
         }
@@ -59,24 +59,25 @@ class UsersController extends Controller
         return view('users.edit', compact('user'));
     }
 
-    public function update(UserFormRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $dataUser = $request->all();
 
-        $user = $this->user->find($id);
+        $this->validate($request, [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => "required|min:3|max:100|email|unique:users,email,{$id}",
+        ]);
 
-        $dataUser['password'] = bcrypt($dataUser['password']);
-
-        $update = $user->update($dataUser);
+        $update = $this->user->find($id)->update($request->all());
 
         if($update){
             return redirect()
                 ->route('users.index')
-                ->with(['success' => 'Usuário cadastrado com sucesso!']);
+                ->with(['success' => 'Usuário atualizado com sucesso!']);
         }else{
             return redirect()
-                ->route('users.create')
-                ->withErrors(['errors' => 'Falha ao cadastrar!'])
+                ->route('users.edit')
+                ->withErrors(['errors' => 'Falha ao atualizar!'])
                 ->withInput();
         }
     }

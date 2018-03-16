@@ -19,6 +19,7 @@
             <div class="col-md-12">
                 @include('form._form_errors')
                 <form method="post" action="{{route('users.update', ['user' => $user->id])}}">
+                    {{ method_field('PATCH') }}
                     @include('users._form')
                     <button type="submit" class="btn btn-primary">Atualizar Usuário</button>
                 </form>
