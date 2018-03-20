@@ -1,63 +1,59 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Costs;
+namespace App\Http\Controllers\Admin\Bill;
 
-use App\Models\CategoryCosts;
+use App\Models\BillReceive;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CategoryController extends Controller
+class ReceiveController extends Controller
 {
     /**
-     * @var CategoryCosts
+     * @var BillReceive
      */
-    private $categoryCosts;
+    private $receive;
+
 
     /**
-     * CategoryController constructor.
+     * ReceiveController constructor.
      */
-    public function __construct(CategoryCosts $categoryCosts)
+    public function __construct(BillReceive $receive)
     {
-        $this->categoryCosts = $categoryCosts;
+        $this->receive = $receive;
     }
 
     public function index()
     {
         $auth = Auth::user();
-        $categories = $this->findByField('user_id', $auth['id']);
-        return view('admin.costs.category.index', compact('categories'));
-
+        $receives = $this->findByField('user_id', $auth['id']);
+        return view('admin.bills.receive.index', compact('receives'));
     }
 
     public function create()
     {
-        return view('admin.costs.category.create', ['categories' => $this->categoryCosts]);
+        return view('admin.bills.receive.create', ['receives' => $this->receive]);
     }
 
-    /**
-     * @param Request $request
-     * @return $this|\Illuminate\Http\RedirectResponse
-     */
     public function store(Request $request)
     {
         $auth = Auth::user();
 
-        $this->validate($request, $this->categoryCosts->rules());
+        $this->validate($request, $this->receive->rules());
 
         $dataForm = $request->all();
 
         $dataForm['user_id'] = $auth['id'];
 
-        $data = $this->categoryCosts->create($dataForm);
+        $data = $this->receive->create($dataForm);
 
         if($data){
             return redirect()
-                ->route('categories.index')
-                ->with(['success' => 'Categoria cadastrada com sucesso!']);
+                ->route('receive.index')
+                ->with(['success' => 'Receita cadastrada com sucesso!']);
         }else{
             return redirect()
-                ->route('categories.create')
+                ->route('receive.create')
                 ->withErrors(['errors' => 'Falha ao cadastrar!'])
                 ->withInput();
         }
@@ -66,81 +62,78 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $auth = Auth::user();
-        $categories = $this->findOneBy([
+        $receives = $this->findOneBy([
             'id' => $id,
             'user_id' => $auth['id']
         ]);
-        return view('admin.costs.category.edit', compact('categories'));
-
+        return view('admin.bills.receive.edit', compact('receives'));
     }
 
     public function update(Request $request, $id)
     {
         $auth = Auth::user();
 
-        $this->validate($request, $this->categoryCosts->rules($id));
+        $this->validate($request, $this->receive->rules($id));
 
         $dataForm = $request->all();
 
         $dataForm['user_id'] = $auth['id'];
 
-        $data = $this->categoryCosts->findOrFail($id)->update($dataForm);
+        $data = $this->receive->findOrFail($id)->update($dataForm);
 
         if($data){
             return redirect()
-                ->route('categories.index')
-                ->with(['success' => 'Atualização realizada com sucesso!']);
+                ->route('receive.index')
+                ->with(['success' => 'Receita atualizada com sucesso!']);
         }else{
             return redirect()
-                ->route('categories.edit')
+                ->route('receive.edit')
                 ->withErrors(['errors' => 'Falha ao atualizar!'])
                 ->withInput();
         }
-
     }
 
     public function show($id)
     {
         $auth = Auth::user();
-        $category = $this->findOneBy([
+        $receive = $this->findOneBy([
             'id' => $id,
             'user_id' => $auth['id']
         ]);
-        return view('admin.costs.category.show', compact('category'));
+        return view('admin.bills.receive.show', compact('receive'));
     }
 
     public function destroy($id)
     {
         $auth = Auth::user();
-        $category = $this->findOneBy([
+        $receive = $this->findOneBy([
             'id' => $id,
             'user_id' => $auth['id']
         ]);
 
-        $data = $category->delete();
+        $data = $receive->delete();
 
         if($data){
             return redirect()
-                ->route('categories.index')
-                ->with(['success' => 'Categoria Excluida com sucesso!']);
+                ->route('receive.index')
+                ->with(['success' => 'Receita Excluida com sucesso!']);
         }else{
             return redirect()
-                ->route('categories.edit')
+                ->route('receive.edit')
                 ->withErrors(['errors' => 'Falha ao atualizar!'])
                 ->withInput();
         }
-        return redirect()->to('/costs/categories');
-
+        return redirect()->to('/bills/receive');
     }
 
     public function findByField($field, $value)
     {
-        return $this->categoryCosts->where($field, '=', $value)->get();
+        return $this->receive->where($field, '=', $value)->get();
     }
 
     public function findOneBy(array $search)
     {
-        $queryBuilder = $this->categoryCosts;
+        $queryBuilder = $this->receive;
         foreach ($search as $field => $value){
             $queryBuilder = $queryBuilder->where($field,'=',$value);
         }

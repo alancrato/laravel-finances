@@ -13,4 +13,13 @@ class BillReceive extends Model
         'value',
         'user_id'
     ];
+
+    public function rules()
+    {
+        return [
+            'name' => 'required|min:3|max:100',
+            'date_launch' => 'required|date',
+            'value' => 'required'
+        ];
+    }
 }

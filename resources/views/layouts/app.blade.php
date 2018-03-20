@@ -39,6 +39,9 @@
                         <li>
                             <a class="nav-link" href="{{ route('categories.index') }}">Centro de Custos</a>
                         </li>
+                        <li>
+                            <a class="nav-link" href="{{ route('receive.index') }}">Contas a Receber</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

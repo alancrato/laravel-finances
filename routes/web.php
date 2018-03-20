@@ -12,10 +12,19 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group([
+    'namespace' => 'Admin\Costs',
     'prefix' => '/costs/',
-    'namespace' => 'Admin\Costs'
+    'middleware' => 'auth'
     ], function(){
     Route::resource('categories', 'CategoryController');
+});
+
+Route::group([
+   'namespace' => 'Admin\Bill',
+   'prefix' => '/bill/',
+   'middleware' => 'auth'
+], function (){
+    Route::resource('receive', 'ReceiveController');
 });
 
 Route::resource('/users', 'UsersController');

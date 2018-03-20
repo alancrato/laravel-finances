@@ -36,7 +36,7 @@
                         <td>{{$category->name}}</td>
                         <td>{{$category->updated_at}}</td>
                         <td>
-                            <a href="{{route('categories.edit', ['$category' => $category->id])}}" title="Editar">
+                            <a href="{{route('categories.edit', ['category' => $category->id])}}" title="Editar">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             |

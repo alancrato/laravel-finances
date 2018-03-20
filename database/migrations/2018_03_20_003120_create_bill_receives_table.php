@@ -17,7 +17,7 @@ class CreateBillReceivesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->date('date_launch');
-            $table->float('value');
+            $table->string('value');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
