@@ -20,6 +20,8 @@ class CreateBillReceivesTable extends Migration
             $table->string('value');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('category_costs');
             $table->timestamps();
         });
     }

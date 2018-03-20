@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Bill;
 
 use App\Models\BillReceive;
 use App\Http\Controllers\Controller;
+use App\Models\CategoryCosts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,14 +14,19 @@ class ReceiveController extends Controller
      * @var BillReceive
      */
     private $receive;
+    /**
+     * @var CategoryCosts
+     */
+    private $categoryCosts;
 
 
     /**
      * ReceiveController constructor.
      */
-    public function __construct(BillReceive $receive)
+    public function __construct(BillReceive $receive, CategoryCosts $categoryCosts)
     {
         $this->receive = $receive;
+        $this->categoryCosts = $categoryCosts;
     }
 
     public function index()
@@ -32,7 +38,10 @@ class ReceiveController extends Controller
 
     public function create()
     {
-        return view('admin.bills.receive.create', ['receives' => $this->receive]);
+        $auth = Auth::user();
+        $categories = $this->findByFieldCat('user_id', $auth['id']);
+        $receives = $this->receive;
+        return view('admin.bills.receive.create', compact('receives', 'categories'));
     }
 
     public function store(Request $request)
@@ -66,7 +75,8 @@ class ReceiveController extends Controller
             'id' => $id,
             'user_id' => $auth['id']
         ]);
-        return view('admin.bills.receive.edit', compact('receives'));
+        $categories = $this->findByFieldCat('user_id', $auth['id']);
+        return view('admin.bills.receive.edit', compact('receives','categories'));
     }
 
     public function update(Request $request, $id)
@@ -131,6 +141,11 @@ class ReceiveController extends Controller
         return $this->receive->where($field, '=', $value)->get();
     }
 
+    public function findByFieldCat($field, $value)
+    {
+        return $this->categoryCosts->where($field, '=', $value)->get();
+    }
+
     public function findOneBy(array $search)
     {
         $queryBuilder = $this->receive;
@@ -139,4 +154,5 @@ class ReceiveController extends Controller
         }
         return $queryBuilder->firstOrFail();
     }
+
 }

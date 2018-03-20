@@ -11,6 +11,7 @@ class BillReceive extends Model
         'name',
         'date_launch',
         'value',
+        'category_id',
         'user_id'
     ];
 
@@ -22,4 +23,10 @@ class BillReceive extends Model
             'value' => 'required'
         ];
     }
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryCosts::class);
+    }
+
 }

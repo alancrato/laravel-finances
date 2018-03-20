@@ -18,4 +18,9 @@ class CategoryCosts extends Model
           'name' => 'required|min:3|max:100'
         ];
     }
+
+    public function receive()
+    {
+        return $this->hasMany(BillReceive::class);
+    }
 }

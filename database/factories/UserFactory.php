@@ -35,6 +35,7 @@ $factory->define(\App\Models\BillReceive::class, function (Faker $faker){
         'name' => $faker->name,
         'date_launch' => $faker->date(),
         'value' => $faker->randomFloat(2,10,1000),
+        'category_id' => rand(1,10),
         'user_id' => rand(1,10),
     ];
 });

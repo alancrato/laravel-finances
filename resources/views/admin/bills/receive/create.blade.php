@@ -19,7 +19,9 @@
             <div class="col-md-12">
                 @include('form._form_errors')
                 <form method="post" action="{{route('receive.store')}}">
+
                     @include('admin.bills.receive._form')
+
                     <button type="submit" class="btn btn-primary">Cadastrar Receita</button>
                 </form>
             </div>

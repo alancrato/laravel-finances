@@ -33,6 +33,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Valor</th>
                     <th scope="col">Data Receita</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Atualizado em:</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -44,6 +45,7 @@
                         <td>{{$receive->name}}</td>
                         <td>R$ {{$receive->value}}</td>
                         <td>{{$receive->date_launch}}</td>
+                        <td>{{$receive->category->name}}</td>
                         <td>{{$receive->updated_at}}</td>
                         <td>
                             <a href="{{route('receive.show', ['receive' => $receive->id])}}" title="Ver">
