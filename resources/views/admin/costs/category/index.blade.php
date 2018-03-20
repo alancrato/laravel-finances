@@ -37,22 +37,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($categories as $cat)
+                @foreach($categories as $category)
                     <tr>
-                        <th scope="row">{{$cat->id}}</th>
-                        <td>{{$cat->name}}</td>
-                        <td>{{$cat->created_at}}</td>
-                        <td>{{$cat->updated_at}}</td>
+                        <th scope="row">{{$category->id}}</th>
+                        <td>{{$category->name}}</td>
+                        <td>{{$category->created_at}}</td>
+                        <td>{{$category->updated_at}}</td>
                         <td>
-                            <a href="{{route('categories.show', ['cat' => $cat->id])}}" title="Ver">
+                            <a href="{{route('categories.show', ['category' => $category->id])}}" title="Ver">
                                 <i class="fas fa-envelope-open"></i>
                             </a>
                             |
-                            <a href="{{route('categories.edit', ['cat' => $cat->id])}}" title="Editar">
+                            <a href="{{route('categories.edit', ['category' => $category->id])}}" title="Editar">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             |
-                            <a href="{{route('categories.show', ['cat' => $cat->id])}}" title="Excluir">
+                            <a href="{{route('categories.show', ['category' => $category->id])}}" title="Excluir">
                                 <i class="far fa-trash-alt"></i>
                             </a>
                         </td>

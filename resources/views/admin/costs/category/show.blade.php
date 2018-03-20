@@ -32,17 +32,17 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{$cat->id}}</td>
-                        <td>{{$cat->name}}</td>
-                        <td>{{$cat->updated_at}}</td>
+                        <td>{{$category->id}}</td>
+                        <td>{{$category->name}}</td>
+                        <td>{{$category->updated_at}}</td>
                         <td>
-                            <a href="{{route('categories.edit', ['cat' => $cat->id])}}" title="Editar">
+                            <a href="{{route('categories.edit', ['$category' => $category->id])}}" title="Editar">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             |
-                            <a href="{{ route('categories.destroy',['cat' => $cat->id]) }}"
+                            <a href="{{ route('categories.destroy',['category' => $category->id]) }}"
                                onclick="event.preventDefault();if(confirm('Deseja excluir este item?')){document.getElementById('form-delete').submit();}"><i class="far fa-trash-alt" title="Excluir"></i></a>
-                            <form id="form-delete"style="display: none" action="{{ route('categories.destroy',['cat' => $cat->id]) }}" method="post">
+                            <form id="form-delete"style="display: none" action="{{ route('categories.destroy',['category' => $category->id]) }}" method="post">
                                 {{csrf_field()}}
                                 {{method_field('DELETE')}}
                             </form>

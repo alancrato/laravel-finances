@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CategoryCostsTableSeeder extends Seeder
+class BillReceiveTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class CategoryCostsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\CategoryCosts::class,20)->create();
+        factory(\App\Models\BillReceive::class,20)->create();
     }
 }

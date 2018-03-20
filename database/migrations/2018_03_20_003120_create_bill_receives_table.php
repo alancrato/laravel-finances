@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoryCosts extends Migration
+class CreateBillReceivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateCategoryCosts extends Migration
      */
     public function up()
     {
-        Schema::create('category_costs', function (Blueprint $table){
+        Schema::create('bill_receives', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->date('date_launch');
+            $table->float('value');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
@@ -29,6 +31,6 @@ class CreateCategoryCosts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category_costs');
+        Schema::dropIfExists('bill_receives');
     }
 }

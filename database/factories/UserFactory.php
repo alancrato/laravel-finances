@@ -25,6 +25,16 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
 
 $factory->define(\App\Models\CategoryCosts::class, function (Faker $faker){
     return [
-        'name' => $faker->name
+        'name' => $faker->name,
+        'user_id' => rand(1,10),
+    ];
+});
+
+$factory->define(\App\Models\BillReceive::class, function (Faker $faker){
+    return [
+        'name' => $faker->name,
+        'date_launch' => $faker->date(),
+        'value' => $faker->randomFloat(2,10,1000),
+        'user_id' => rand(1,10),
     ];
 });

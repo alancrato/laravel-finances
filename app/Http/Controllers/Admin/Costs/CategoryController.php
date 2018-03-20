@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Costs;
 use App\Models\CategoryCosts;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -24,7 +25,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = $this->categoryCosts->orderBy('id', 'DESC')->paginate();
+        $auth = Auth::user();
+        $categories = $this->findByField('user_id', $auth['id']);
         return view('admin.costs.category.index', compact('categories'));
 
     }
@@ -34,16 +36,26 @@ class CategoryController extends Controller
         return view('admin.costs.category.create', ['categories' => $this->categoryCosts]);
     }
 
+    /**
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
+        $auth = Auth::user();
+
         $this->validate($request, $this->categoryCosts->rules());
 
-        $data = $this->categoryCosts->create($request->all());
+        $dataForm = $request->all();
+
+        $dataForm['user_id'] = $auth['id'];
+
+        $data = $this->categoryCosts->create($dataForm);
 
         if($data){
             return redirect()
                 ->route('categories.index')
-                ->with(['success' => 'Cadastro realizado com sucesso!']);
+                ->with(['success' => 'Categoria cadastrada com sucesso!']);
         }else{
             return redirect()
                 ->route('categories.create')
@@ -54,16 +66,26 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $categories = $this->categoryCosts->findOrFail($id);
+        $auth = Auth::user();
+        $categories = $this->findOneBy([
+            'id' => $id,
+            'user_id' => $auth['id']
+        ]);
         return view('admin.costs.category.edit', compact('categories'));
 
     }
 
     public function update(Request $request, $id)
     {
+        $auth = Auth::user();
+
         $this->validate($request, $this->categoryCosts->rules($id));
 
-        $data = $this->categoryCosts->findOrFail($id)->update($request->all());
+        $dataForm = $request->all();
+
+        $dataForm['user_id'] = $auth['id'];
+
+        $data = $this->categoryCosts->findOrFail($id)->update($dataForm);
 
         if($data){
             return redirect()
@@ -80,15 +102,49 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        $cat = $this->categoryCosts->findOrFail($id);
-        return view('admin.costs.category.show', compact('cat'));
+        $auth = Auth::user();
+        $category = $this->findOneBy([
+            'id' => $id,
+            'user_id' => $auth['id']
+        ]);
+        return view('admin.costs.category.show', compact('category'));
     }
 
     public function destroy($id)
     {
-        $cat = $this->categoryCosts->findOrFail($id);
-        $cat->delete();
+        $auth = Auth::user();
+        $category = $this->findOneBy([
+            'id' => $id,
+            'user_id' => $auth['id']
+        ]);
+
+        $data = $category->delete();
+
+        if($data){
+            return redirect()
+                ->route('categories.index')
+                ->with(['success' => 'Categoria Excluida com sucesso!']);
+        }else{
+            return redirect()
+                ->route('categories.edit')
+                ->withErrors(['errors' => 'Falha ao atualizar!'])
+                ->withInput();
+        }
         return redirect()->to('/costs/categories');
 
+    }
+
+    public function findByField($field, $value)
+    {
+        return $this->categoryCosts->where($field, '=', $value)->get();
+    }
+
+    public function findOneBy(array $search)
+    {
+        $queryBuilder = $this->categoryCosts;
+        foreach ($search as $field => $value){
+            $queryBuilder = $queryBuilder->where($field,'=',$value);
+        }
+        return $queryBuilder->firstOrFail();
     }
 }

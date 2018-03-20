@@ -8,7 +8,8 @@ class CategoryCosts extends Model
 {
     //Comment model push test
     protected $fillable = [
-        'name'
+        'name',
+        'user_id'
     ];
 
     public function rules()
