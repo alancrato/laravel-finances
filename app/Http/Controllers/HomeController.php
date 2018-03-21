@@ -21,6 +21,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $title = 'Laravel - Office Management!';
+        return view('home', compact('title'));
     }
 }

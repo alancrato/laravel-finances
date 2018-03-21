@@ -8,17 +8,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $title or 'Laravel - Office Management!' }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ url('css/style.css')}} " rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-    <style>
-        ul li{
-            list-style-type: none;
-        }
-    </style>
+    <link rel="icon" type="image/png" href="https://utils.organizze.com.br/favicons/favicon-32x32.png" sizes="32x32">
+
 </head>
 <body>
     <div id="app">
