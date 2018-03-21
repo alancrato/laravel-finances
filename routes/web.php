@@ -25,6 +25,7 @@ Route::group([
    'middleware' => 'auth'
 ], function (){
     Route::resource('receive', 'ReceiveController');
+    Route::resource('pay', 'PayController');
 });
 
 Route::resource('/users', 'UsersController');

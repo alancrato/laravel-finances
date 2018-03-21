@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserFormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -24,8 +25,10 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = $this->user->all();
-        return view('users.index', compact('users'));
+        $auth = Auth::user();
+        $user = $this->findByField('id', $auth['id']);
+        return view('users.index', compact('user'));
+
     }
 
     public function create()
@@ -93,5 +96,10 @@ class UsersController extends Controller
         $user = $this->user->find($id);
         $user->delete();
         return redirect()->to('/users');
+    }
+
+    public function findByField($field, $value)
+    {
+        return $this->user->where($field, '=', $value)->get();
     }
 }

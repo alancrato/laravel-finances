@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="text-left">
-                    <h4>Gestão de Usuários</h4>
+                    <h4>Contas a Receber</h4>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="text-right">
-                    <a href="{{  route('users.create') }}" class="btn btn-outline-dark" title="Novo Usuário">
+                    <a href="{{route('pay.create')}}" class="btn btn-outline-dark" title="Nova Conta">
                         <i class="fas fa-plus"></i>
                     </a>
                 </div>
@@ -30,29 +30,33 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">E-mail</th>
-                    <th scope="col">Ações</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Data Pagamento</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Atualizado em:</th>
+                    <th scope="col">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($user as $us)
+                @foreach($pays as $pay)
                     <tr>
-                        <th scope="row">{{$us->id}}</th>
-                        <td>{{$us->first_name}}</td>
-                        <td>{{$us->last_name}}</td>
-                        <td>{{$us->email}}</td>
+                        <th scope="row">{{$pay->id}}</th>
+                        <td>{{$pay->name}}</td>
+                        <td>R$ {{$pay->value}}</td>
+                        <td>{{$pay->date_launch}}</td>
+                        <td>{{$pay->category->name}}</td>
+                        <td>{{$pay->updated_at}}</td>
                         <td>
-                            <a href="{{route('users.show', ['us' => $us->id])}}" title="Ver">
+                            <a href="{{route('pay.show', ['pay' => $pay->id])}}" title="Ver">
                                 <i class="fas fa-envelope-open"></i>
                             </a>
                             |
-                            <a href="{{route('users.edit', ['us' => $us->id])}}" title="Editar">
+                            <a href="{{route('pay.edit', ['pay' => $pay->id])}}" title="Editar">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             |
-                            <a href="{{route('users.show', ['us' => $us->id])}}" title="Excluir">
+                            <a href="{{route('pay.show', ['pay' => $pay->id])}}" title="Excluir">
                                 <i class="far fa-trash-alt"></i>
                             </a>
                         </td>

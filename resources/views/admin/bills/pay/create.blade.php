@@ -5,12 +5,12 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="text-left">
-                    <h4>Editar Perfil</h4>
+                    <h4>Nova Despesa</h4>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="text-right">
-                    <a href="{{route('users.index')}}" class="btn btn-outline-dark" title="Listar Usuários">
+                    <a href="{{route('pay.index')}}" class="btn btn-outline-dark" title="Listar Despesas">
                         <i class="fas fa-clipboard-list"></i>
                     </a>
                 </div>
@@ -18,10 +18,11 @@
             <br/><br/>
             <div class="col-md-12">
                 @include('form._form_errors')
-                <form method="post" action="{{route('users.update', ['user' => $user->id])}}">
-                    {{ method_field('PATCH') }}
-                    @include('users._form')
-                    <button type="submit" class="btn btn-primary">Atualizar Usuário</button>
+                <form method="post" action="{{route('pay.store')}}">
+
+                    @include('admin.bills.pay._form')
+
+                    <button type="submit" class="btn btn-primary">Cadastrar Despesa</button>
                 </form>
             </div>
         </div>

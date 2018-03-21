@@ -39,3 +39,13 @@ $factory->define(\App\Models\BillReceive::class, function (Faker $faker){
         'user_id' => rand(1,10),
     ];
 });
+
+$factory->define(\App\Models\BillPay::class, function (Faker $faker){
+    return [
+        'name' => $faker->name,
+        'date_launch' => $faker->date(),
+        'value' => $faker->randomFloat(2,10,1000),
+        'category_id' => rand(1,10),
+        'user_id' => rand(1,10),
+    ];
+});
