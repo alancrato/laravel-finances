@@ -11,6 +11,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::resource('/users', 'UsersController');
+
 Route::group([
     'namespace' => 'Admin\Costs',
     'prefix' => '/costs/',
@@ -28,4 +30,4 @@ Route::group([
     Route::resource('pay', 'PayController');
 });
 
-Route::resource('/users', 'UsersController');
+Route::get('/statements', 'Admin\StatementsController@index')->name('statements');

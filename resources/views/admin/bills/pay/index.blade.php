@@ -44,7 +44,7 @@
                         <th scope="row">{{$pay->id}}</th>
                         <td>{{$pay->name}}</td>
                         <td>R$ {{$pay->value}}</td>
-                        <td>{{$pay->date_launch}}</td>
+                        <td>{{$pay->date_launch }}</td>
                         <td>{{$pay->category->name}}</td>
                         <td>{{$pay->updated_at}}</td>
                         <td>

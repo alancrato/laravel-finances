@@ -1,0 +1,20 @@
+
+/**
+Nav
+ */
+
+.navbar-laravel {
+    background-color: #00c2cc;
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,.04);
+    box-shadow: 0 2px 4px rgba(0,0,0,.04);
+}
+
+.navbar-light .navbar-brand, .navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
+    color: azure;
+    font-weight: bold;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #f6f7f9;
+    font-weight: 400;
+}

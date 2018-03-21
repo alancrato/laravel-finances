@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ url('css/style.css')}} " rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <style>
         ul li{
@@ -41,6 +42,9 @@
                         </li>
                         <li>
                             <a class="nav-link" href="{{ route('pay.index') }}">Contas a Pagar</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="{{ route('statements') }}">Extrato</a>
                         </li>
                     </ul>
 
