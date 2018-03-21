@@ -71,6 +71,10 @@ class UsersController extends Controller
             'email' => "required|min:3|max:100|email|unique:users,email,{$id}",
         ]);
 
+        if(isset($request['password'])){
+            unset($request['password']);
+        }
+
         $update = $this->user->find($id)->update($request->all());
 
         if($update){

@@ -22,3 +22,12 @@ ul li{
     color: #f6f7f9;
     font-weight: 400;
 }
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color: #d3e2e2;
+}
+
+.navbar-nav{
+    margin-left: 10px;
+}
+
